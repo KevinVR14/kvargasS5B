@@ -61,5 +61,42 @@ namespace kvargasS5B.Utils
             }
             return new List<Persona>();
         }
+
+        public void EditPerson(int id, string name)
+        {
+            int result = 0;
+            try
+            {
+                Init();
+
+                if (string.IsNullOrEmpty(name))
+                    throw new Exception("Nombre requerido");
+
+                Persona persona = new() {Id = id, Name = name };
+                result = connection.Update(persona);
+                StatusMessage = string.Format("{0} record(s) updated (Nombre: {1})", result, name);
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to update {0}. Error: {1}", name, ex.Message);
+            }
+        }
+
+        public void DeletePerson(int id)
+        {
+            int result = 0;
+            try
+            {
+                Init();
+
+                Persona persona = new() { Id = id };
+                result = connection.Delete(persona);
+                StatusMessage = string.Format("{0} record(s) deleted (Id: {1})", result, id);
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to delete {0}. Error: {1}", id, ex.Message);
+            }
+        }
     }
 }

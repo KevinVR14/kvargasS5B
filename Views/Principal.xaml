@@ -9,9 +9,16 @@
             Text="Welcome to .NET MAUI!"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        
+        <Button x:Name="btnNuevo"
+                    Text="Nuevo"
+                BackgroundColor="Orange"
+                    Clicked="btnNuevo_Clicked"/>
 
         <Entry x:Name="txtName"
                Placeholder="Ingrese el nombre"/>
+        <Entry x:Name="txtId"
+               IsVisible="Hidden"/>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -25,6 +32,7 @@
             </Grid.ColumnDefinitions>
             <Button x:Name="btnAdd"
                     Text="Agregar Persona"
+                    BackgroundColor="Blue"
                     Clicked="btnAdd_Clicked"
                     Grid.Row="0"
                     Grid.Column="0"/>
@@ -38,6 +46,8 @@
                     Grid.Row="2"
                     Grid.Column="0"/>
             <CollectionView x:Name="listaPersonas"
+                            SelectionMode="Single"
+                            SelectionChanged="listaPersonas_SelectionChanged"
                             Grid.Row="3"
                             Grid.Column="0">
                 <CollectionView.ItemTemplate>
@@ -46,11 +56,20 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label Text="{Binding Id}"
                                    Grid.Column="0"/>
                             <Label Text="{Binding Name}"
                                    Grid.Column="1"/>
+                            <!-- Icono de selección -->
+                            <Image Source="edit_icon.png" 
+                                   HeightRequest="20" 
+                                   WidthRequest="20" 
+                                   HorizontalOptions="EndAndExpand" 
+                                   VerticalOptions="Center"
+                                   Grid.Column="2"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
